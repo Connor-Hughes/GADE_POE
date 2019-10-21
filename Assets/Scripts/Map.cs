@@ -51,10 +51,10 @@ public class Map
                 UnitName = "Ranged";
             }
 
-            ResourceBuilding DiamondMine = new ResourceBuilding(0, 0, 100, Faction.Hero, "◘", 10); // setting the values and symbols for the diamond mines
+            ResourceBuilding DiamondMine = new ResourceBuilding(0, 0, 100, Units.Faction.Hero, "◘", 10); // setting the values and symbols for the diamond mines
             diamondMines.Add(DiamondMine);
 
-            FactoryBuilding barrack = new FactoryBuilding(0, 0, 100, Faction.Hero, "┬", Rd.Next(3, 10), UnitName); // setting the values and symbols for the barracks
+            FactoryBuilding barrack = new FactoryBuilding(0, 0, 100, Units.Faction.Hero, "┬", Random.Range(3, 10), UnitName); // setting the values and symbols for the barracks
             barracks.Add(barrack);
 
         }
@@ -72,17 +72,17 @@ public class Map
                 UnitName = "Ranged";
             }
 
-            ResourceBuilding DiamondMine = new ResourceBuilding(0, 0, 100, Faction.Villain, "◘", 10);
+            ResourceBuilding DiamondMine = new ResourceBuilding(0, 0, 100, Units.Faction.Villain, "◘", 10);
             diamondMines.Add(DiamondMine);
 
             FactoryBuilding barrack =
-                new FactoryBuilding(0, 0, 100, Faction.Villain, "┬", Rd.Next(3, 10), UnitName);
+                new FactoryBuilding(0, 0, 100, Units.Faction.Villain, "┬", Random.Range(3, 10), UnitName);
             barracks.Add(barrack);
         }
 
         for (int i = 0; i < BuildingNum; i++)
         {
-            WizardUnit wizard = new WizardUnit("Wizard", 0, 0, 15, 1, 3, 1, Faction.Neutral, "≈", false); //setting values for the new wizard unit
+            WizardUnit wizard = new WizardUnit("Wizard", 0, 0, 15, 1, 3, 1, Units.Faction.Neutral, "≈", false); //setting values for the new wizard unit
             wizardUnits.Add(wizard);
         }
 
@@ -177,9 +177,9 @@ public class Map
                 RangedUnit r = (RangedUnit)u;
                 uniMap[r.PosY, r.PosX] = u;
             }
-            else if (u is MelleUnit)
+            else if (u is MeleeUnit)
             {
-                MelleUnit m = (MelleUnit)u;
+                MeleeUnit m = (MeleeUnit)u;
                 uniMap[m.PosY, m.PosX] = u;
             }
             else if (u is WizardUnit)
@@ -244,7 +244,7 @@ public class Map
         }
     }
 
-    public void SpawnUnits(int x, int y, Faction fac, string unitType) // Spawning the Units from the Buildings including the melee and ranged Units
+    public void SpawnUnits(int x, int y, Units.Faction fac, string unitType) // Spawning the Units from the Buildings including the melee and ranged Units
     {
         if (unitType == "Ranged")
         {
@@ -254,7 +254,7 @@ public class Map
         }
         else if (unitType == "Melee")
         {
-            MelleUnit Pekka = new MelleUnit("Pekka", x, y, 50, 1, 10, 1, fac, "#", false);
+            MeleeUnit Pekka = new MeleeUnit("Pekka", x, y, 50, 1, 10, 1, fac, "#", false);
             melleUnit.Add(Pekka);
             units.Add(Pekka);
         }

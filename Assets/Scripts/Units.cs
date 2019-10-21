@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Units
 {
-    [Serializable]
-    enum Faction //factions for both the Melee and the Ranged unit and new wizard unit
+    //[Serializable]
+    public enum Faction //factions for both the Melee and the Ranged unit and new wizard unit
     {
         Hero,
         Villain,

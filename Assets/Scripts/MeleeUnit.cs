@@ -67,7 +67,7 @@ public class MeleeUnit : Units
     Units ClosestUnit;
     Building ClosestBuilding;
 
-    public MelleUnit(string N, int x, int y, int hp, int spd, int atk, int attRange, Faction fac, string sym,
+    public MeleeUnit(string N, int x, int y, int hp, int spd, int atk, int attRange, Faction fac, string sym,
         bool iatk)
         : base(N, x, y, hp, spd, atk, attRange, fac, sym, iatk)
     {
@@ -81,9 +81,9 @@ public class MeleeUnit : Units
         {
             if (type == 0)
             {
-                if (ClosestUnit is MelleUnit)
+                if (ClosestUnit is MeleeUnit)
                 {
-                    MelleUnit closestUnitM = (MelleUnit)ClosestUnit;
+                    MeleeUnit closestUnitM = (MeleeUnit)ClosestUnit;
 
                     if (closestUnitM.posX > posX && posX < 20)
                     {
@@ -226,9 +226,9 @@ public class MeleeUnit : Units
     {
         if (type == 0)
         {
-            if (ClosestUnit is MelleUnit)
+            if (ClosestUnit is MeleeUnit)
             {
-                MelleUnit M = (MelleUnit)ClosestUnit;
+                MeleeUnit M = (MeleeUnit)ClosestUnit;
                 M.Health -= Attack;       // checking the health = health + attack 
             }
             else if (ClosestUnit is RangedUnit)
@@ -274,9 +274,9 @@ public class MeleeUnit : Units
         int uDistance = 10000, bDistance = 10000;
         int distance;
 
-        if (ClosestUnit is MelleUnit)
+        if (ClosestUnit is MeleeUnit)
         {
-            MelleUnit M = (MelleUnit)ClosestUnit;
+            MeleeUnit M = (MeleeUnit)ClosestUnit;
             xDis = Mathf.Abs((PosX - M.PosX) * (PosX - M.PosX));
             yDis = Mathf.Abs((PosY - M.PosY) * (PosY - M.PosY));
 
@@ -384,9 +384,9 @@ public class MeleeUnit : Units
                 }
 
             }
-            else if (b is MelleUnit)
+            else if (b is MeleeUnit)
             {
-                MelleUnit Rb = (MelleUnit)b;
+                MeleeUnit Rb = (MeleeUnit)b;
                 if (FactionType != b.factionType)
                 {
                     Xdis = Mathf.Abs(PosX - Rb.PosX) * (PosX - Rb.PosX);

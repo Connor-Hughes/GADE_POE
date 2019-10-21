@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class WizardUnit : Units
 {
@@ -78,9 +80,9 @@ public class WizardUnit : Units
     {
         if (Health > MaxHealth * 0.5)
         {
-            if (ClosestUnit is MelleUnit)
+            if (ClosestUnit is MeleeUnit)
             {
-                MelleUnit closestUnitM = (MelleUnit) ClosestUnit;
+                MeleeUnit closestUnitM = (MeleeUnit) ClosestUnit;
 
                 if (closestUnitM.posX > posX && posX < 20)
                 {
@@ -130,9 +132,9 @@ public class WizardUnit : Units
     {
         foreach (Units u in units)
         {
-            if (u is MelleUnit) //setting the attack variables if the oposition is a melee unit
+            if (u is MeleeUnit) //setting the attack variables if the oposition is a melee unit
             {
-                MelleUnit m = (MelleUnit) u;
+                MeleeUnit m = (MeleeUnit) u;
 
                 if (m.posX == posX - 1 && m.posY == posY - 1)
                 {
@@ -228,21 +230,21 @@ public class WizardUnit : Units
         int uDistance = 10000, bDistance = 10000;
         int distance;
 
-        if (ClosestUnit is MelleUnit)
+        if (ClosestUnit is MeleeUnit)
         {
-            MelleUnit M = (MelleUnit) ClosestUnit;
-            xDis = Math.Abs((PosX - M.PosX) * (PosX - M.PosX));
-            yDis = Math.Abs((PosY - M.PosY) * (PosY - M.PosY));
+            MeleeUnit M = (MeleeUnit) ClosestUnit;
+            xDis = Mathf.Abs((PosX - M.PosX) * (PosX - M.PosX));
+            yDis = Mathf.Abs((PosY - M.PosY) * (PosY - M.PosY));
 
-            uDistance = (int) Math.Round(Math.Sqrt(xDis + yDis), 0);
+            uDistance = (int) Mathf.Round(Mathf.Sqrt(xDis + yDis));
         }
         else if (ClosestUnit is RangedUnit)
         {
             RangedUnit R = (RangedUnit) ClosestUnit;
-            xDis = Math.Abs((PosX - R.PosX) * (PosX - R.PosX));
-            yDis = Math.Abs((PosY - R.PosY) * (PosY - R.PosY));
+            xDis = Mathf.Abs((PosX - R.PosX) * (PosX - R.PosX));
+            yDis = Mathf.Abs((PosY - R.PosY) * (PosY - R.PosY));
 
-            uDistance = (int) Math.Round(Math.Sqrt(xDis + yDis), 0);
+            uDistance = (int) Mathf.Round(Mathf.Sqrt(xDis + yDis));
         }
 
         if (units[0] != null)
@@ -312,22 +314,22 @@ public class WizardUnit : Units
 
                 if (FactionType != b.factionType)
                 {
-                    Xdis = Math.Abs(PosX - Fb.PosX) * (PosX - Fb.PosX);
-                    Ydis = Math.Abs(PosY - Fb.PosY) * (PosY - Fb.PosY);
+                    Xdis = Mathf.Abs(PosX - Fb.PosX) * (PosX - Fb.PosX);
+                    Ydis = Mathf.Abs(PosY - Fb.PosY) * (PosY - Fb.PosY);
 
-                    Distance = Math.Round(Math.Sqrt(Xdis + Ydis), 0);
+                    Distance = Mathf.Round(Mathf.Sqrt(Xdis + Ydis));
                 }
 
             }
-            else if (b is MelleUnit)
+            else if (b is MeleeUnit)
             {
-                MelleUnit Rb = (MelleUnit) b;
+                MeleeUnit Rb = (MeleeUnit) b;
                 if (FactionType != b.factionType)
                 {
-                    Xdis = Math.Abs(PosX - Rb.PosX) * (PosX - Rb.PosX);
-                    Ydis = Math.Abs(PosY - Rb.PosY) * (PosY - Rb.PosY);
+                    Xdis = Mathf.Abs(PosX - Rb.PosX) * (PosX - Rb.PosX);
+                    Ydis = Mathf.Abs(PosY - Rb.PosY) * (PosY - Rb.PosY);
 
-                    Distance = Math.Round(Math.Sqrt(Xdis + Ydis), 0);
+                    Distance = Mathf.Round(Mathf.Sqrt(Xdis + Ydis));
                 }
             }
 

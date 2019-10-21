@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RangedUnit : Units
 {
@@ -79,9 +81,9 @@ public class RangedUnit : Units
         {
             if (type == 0)
             {
-                if (ClosestUnit is MelleUnit)
+                if (ClosestUnit is MeleeUnit)
                 {
-                    MelleUnit closestUnitM = (MelleUnit)ClosestUnit;
+                    MeleeUnit closestUnitM = (MeleeUnit)ClosestUnit;
 
                     if (closestUnitM.posX > posX && posX < 20)
                     {
@@ -270,38 +272,38 @@ public class RangedUnit : Units
         int uDistance = 10000, bDistance = 10000;
         int distance;
 
-        if (ClosestUnit is MelleUnit)
+        if (ClosestUnit is MeleeUnit)
         {
-            MelleUnit M = (MelleUnit)ClosestUnit;
-            xDis = Math.Abs((PosX - M.PosX) * (PosX - M.PosX));
-            yDis = Math.Abs((PosY - M.PosY) * (PosY - M.PosY));
+            MeleeUnit M = (MeleeUnit)ClosestUnit;
+            xDis = Mathf.Abs((PosX - M.PosX) * (PosX - M.PosX));
+            yDis = Mathf.Abs((PosY - M.PosY) * (PosY - M.PosY));
 
-            uDistance = (int)Math.Round(Math.Sqrt(xDis + yDis), 0);
+            uDistance = (int)Mathf.Round(Mathf.Sqrt(xDis + yDis));
         }
         else if (ClosestUnit is RangedUnit)
         {
             RangedUnit R = (RangedUnit)ClosestUnit;
-            xDis = Math.Abs((PosX - R.PosX) * (PosX - R.PosX));
-            yDis = Math.Abs((PosY - R.PosY) * (PosY - R.PosY));
+            xDis = Mathf.Abs((PosX - R.PosX) * (PosX - R.PosX));
+            yDis = Mathf.Abs((PosY - R.PosY) * (PosY - R.PosY));
 
-            uDistance = (int)Math.Round(Math.Sqrt(xDis + yDis), 0);
+            uDistance = (int)Mathf.Round(Mathf.Sqrt(xDis + yDis));
         }
 
         if (ClosestBuilding is FactoryBuilding)
         {
             FactoryBuilding FB = (FactoryBuilding)ClosestBuilding;
-            xDis = Math.Abs((PosX - FB.PosX) * (PosX - FB.PosX));
-            yDis = Math.Abs((PosY - FB.PosY) * (PosY - FB.PosY));
+            xDis = Mathf.Abs((PosX - FB.PosX) * (PosX - FB.PosX));
+            yDis = Mathf.Abs((PosY - FB.PosY) * (PosY - FB.PosY));
 
-            bDistance = (int)Math.Round(Math.Sqrt(xDis + yDis), 0);
+            bDistance = (int)Mathf.Round(Mathf.Sqrt(xDis + yDis));
         }
         else if (ClosestBuilding is ResourceBuilding)
         {
             ResourceBuilding RB = (ResourceBuilding)ClosestBuilding;
-            xDis = Math.Abs((PosX - RB.PosX) * (PosX - RB.PosX));
-            yDis = Math.Abs((PosY - RB.PosY) * (PosY - RB.PosY));
+            xDis = Mathf.Abs((PosX - RB.PosX) * (PosX - RB.PosX));
+            yDis = Mathf.Abs((PosY - RB.PosY) * (PosY - RB.PosY));
 
-            bDistance = (int)Math.Round(Math.Sqrt(xDis + yDis), 0);
+            bDistance = (int)Mathf.Round(Mathf.Sqrt(xDis + yDis));
         }
 
         if (units[0] != null)
@@ -371,23 +373,23 @@ public class RangedUnit : Units
 
                 if (FactionType != b.factionType)
                 {
-                    Xdis = Math.Abs(PosX - Fb.PosX) * (PosX - Fb.PosX);
-                    Ydis = Math.Abs(PosY - Fb.PosY) * (PosY - Fb.PosY);
+                    Xdis = Mathf.Abs(PosX - Fb.PosX) * (PosX - Fb.PosX);
+                    Ydis = Mathf.Abs(PosY - Fb.PosY) * (PosY - Fb.PosY);
 
-                    Distance = Math.Round(Math.Sqrt(Xdis + Ydis), 0);
+                    Distance = Mathf.Round(Mathf.Sqrt(Xdis + Ydis));
                 }
 
 
             }
-            else if (b is MelleUnit)
+            else if (b is MeleeUnit)
             {
-                MelleUnit Rb = (MelleUnit)b;
+                MeleeUnit Rb = (MeleeUnit)b;
                 if (FactionType != b.factionType)
                 {
-                    Xdis = Math.Abs(PosX - Rb.PosX) * (PosX - Rb.PosX);
-                    Ydis = Math.Abs(PosY - Rb.PosY) * (PosY - Rb.PosY);
+                    Xdis = Mathf.Abs(PosX - Rb.PosX) * (PosX - Rb.PosX);
+                    Ydis = Mathf.Abs(PosY - Rb.PosY) * (PosY - Rb.PosY);
 
-                    Distance = Math.Round(Math.Sqrt(Xdis + Ydis), 0);
+                    Distance = Mathf.Round(Mathf.Sqrt(Xdis + Ydis));
                 }
             }
             else if (b is WizardUnit)
@@ -395,10 +397,10 @@ public class RangedUnit : Units
                 WizardUnit Wu = (WizardUnit)b;
                 if (FactionType != b.factionType)
                 {
-                    Xdis = Math.Abs(PosX - Wu.PosX) * (PosX - Wu.PosX);
-                    Ydis = Math.Abs(PosY - Wu.PosY) * (PosY - Wu.PosY);
-
-                    Distance = Math.Round(Math.Sqrt(Xdis + Ydis), 0);
+                    Xdis = Mathf.Abs(PosX - Wu.PosX) * (PosX - Wu.PosX);
+                    Ydis = Mathf.Abs(PosY - Wu.PosY) * (PosY - Wu.PosY);
+                    
+                    Distance = Mathf.Round(Mathf.Sqrt(Xdis + Ydis));
                 }
             }
 
@@ -427,10 +429,10 @@ public class RangedUnit : Units
 
                 if (FactionType != b.faction)
                 {
-                    Xdis = Math.Abs(PosX - Fb.PosX) * (PosX - Fb.PosX);
-                    Ydis = Math.Abs(PosY - Fb.PosY) * (PosY - Fb.PosY);
+                    Xdis = Mathf.Abs(PosX - Fb.PosX) * (PosX - Fb.PosX);
+                    Ydis = Mathf.Abs(PosY - Fb.PosY) * (PosY - Fb.PosY);
 
-                    Distance = Math.Round(Math.Sqrt(Xdis + Ydis), 0);
+                    Distance = Mathf.Round(Mathf.Sqrt(Xdis + Ydis));
                 }
 
             }
@@ -439,10 +441,10 @@ public class RangedUnit : Units
                 ResourceBuilding Rb = (ResourceBuilding)b;
                 if (FactionType != b.faction)
                 {
-                    Xdis = Math.Abs(PosX - Rb.PosX) * (PosX - Rb.PosX);
-                    Ydis = Math.Abs(PosY - Rb.PosY) * (PosY - Rb.PosY);
+                    Xdis = Mathf.Abs(PosX - Rb.PosX) * (PosX - Rb.PosX);
+                    Ydis = Mathf.Abs(PosY - Rb.PosY) * (PosY - Rb.PosY);
 
-                    Distance = Math.Round(Math.Sqrt(Xdis + Ydis), 0);
+                    Distance = Mathf.Round(Mathf.Sqrt(Xdis + Ydis));
                 }
             }
 
