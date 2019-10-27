@@ -14,6 +14,7 @@ using Color = UnityEngine.Color;
 public class GameEngine : MonoBehaviour
 {
     int temp = 0;
+    bool runGame = false;
 
     // Start is called before the first frame update
     void Start()
@@ -286,6 +287,20 @@ public class GameEngine : MonoBehaviour
             {
                 m.tileMap[i, j] = Tiles.emptyTile;
             }
+        }
+    }
+
+    public void PlayPause()
+    {
+        if (runGame == false)
+        {
+            runGame = true;
+            txtPausePlay.text = "Pause";
+        }
+        else
+        {
+            runGame = false;
+            txtPausePlay.text = "Play";
         }
     }
 
