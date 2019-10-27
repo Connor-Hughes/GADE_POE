@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-
+[System.Serializable]
 public abstract class Units
 {
     //[Serializable]
@@ -42,7 +42,6 @@ public abstract class Units
 
     public abstract Units Position();
 
-    public abstract string ToString();
 
     public Units(string N, int x, int y, int hp, int spd, int atk, int attRange, Faction fac, string sym,
         bool iatk) // constructor

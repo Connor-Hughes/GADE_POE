@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+[System.Serializable]
 public class ResourceBuilding : Building
 {
 
@@ -83,15 +84,4 @@ public class ResourceBuilding : Building
         }
     }
 
-
-
-    public override string ToString() //ToString method to let the user know what type of unit they are looking at, the HP, the atk damage, what resource the building is producing etc
-    {
-        return " Mine: X: " + posX
-               + " Y: " + posY
-               + "\nHealth: " + Health
-               + "\nResource: " + Resource + ": " + ResourceGenerated
-               + "\nResource: " + ResourcePool
-               + "\nFaction: " + Faction;
-    }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class MeleeUnit : Units
 {
     public int PosX
@@ -464,17 +465,5 @@ public class MeleeUnit : Units
         return Target;
     }
 
-    public override string ToString() //Shares the unit and Building information with the player
-    {
-        return name + " X: " + posX
-               + " Y: " + posY
-               + "\nMaxHealth: " + MaxHealth
-               + "\nHealth: " + Health
-               + "\nSpeed: " + Speed
-               + "\nAttackDamage: " + Attack
-               + "AttackRange: " + AtkRange
-               + "\nFaction: " + FactionType;
-
-    }
 }
 

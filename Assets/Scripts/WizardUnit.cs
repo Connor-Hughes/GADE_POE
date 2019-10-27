@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[System.Serializable]
 public class WizardUnit : Units
 {
     public int PosX //properties for the New Wizard unit 
@@ -342,19 +343,6 @@ public class WizardUnit : Units
         }
 
         return Target;
-    }
-
-    public override string ToString() //Shares the unit and Building information with the player
-    {
-        return name + " X: " + posX
-               + " Y: " + posY
-               + "\nMaxHealth: " + MaxHealth
-               + "\nHealth: " + Health
-               + "\nSpeed: " + Speed
-               + "\nAttackDamage: " + Attack
-               + "AttackRange: " + AtkRange
-               + "\nFaction: " + FactionType;
-
     }
 }
 

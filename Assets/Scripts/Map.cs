@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
-
+[System.Serializable]
 public enum Tiles
 {
     emptyTile,

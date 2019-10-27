@@ -17,8 +17,6 @@ public abstract class Building
 
     public abstract bool Destruction();
 
-    public abstract string ToString();
-
     public Building(int x, int y, int hp, Faction fac, string sym) //constructor for the building class
     {
         posX = x;
