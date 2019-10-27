@@ -30,20 +30,25 @@ public class GameEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (temp == 20)
+        if (runGame)
         {
-            GameLogic();
-            InitialiseMap();
-            m.Populate();
-            m.PlaceBuildings();
-            placeObjects();
+            if (temp == 20)
+            {
+                GameLogic();
+                InitialiseMap();
+                m.Populate();
+                m.PlaceBuildings();
+                placeObjects();
 
-            temp = 0;
+                temp = 0;
+            }
+            else
+            {
+                temp++;
+            }
         }
-        else
-        {
-            temp++;
-        }
+
+       
     }
 
     //GameObjects
@@ -65,6 +70,15 @@ public class GameEngine : MonoBehaviour
     static int UnitNum = 8;
     public int Round = 1;
 
+    int hero = 0;
+    int villian = 0;
+
+     int HeroResourcesLeft = 0;
+     int VillainResourcesLeft = 0;
+     int HeroResourcesCollected = 0;
+    int VillainResourcesCollected = 0;
+
+
     private Map m;
 
     public Text txtWinText;
@@ -83,8 +97,9 @@ public class GameEngine : MonoBehaviour
 
     public void GameLogic() //game engine method instead of a separate class
     {
-        int hero = 0;
-        int villian = 0;
+        txtRound.text = "Round: " + Round;
+        hero = 0;
+        villian = 0;
 
         foreach (ResourceBuilding u in m.diamondMines) // incrementing the hero or villain based on which faction type they belong to
         {
@@ -125,10 +140,22 @@ public class GameEngine : MonoBehaviour
 
         if (hero > 0 && villian > 0) // telling the game when there is only 1 type of unit left then that team is the victor
         {
+            int ResourcesRemainingVillain;
+            int ResourcesRemainingHero;
+
             foreach (ResourceBuilding Rb in m.diamondMines)
             {
                 Rb.GenerateResources();
+                if (Rb.faction == Faction.Hero)
+                {
+                    
+                }
+                else if (Rb.faction == Faction.Villain)
+                {
+
+                }
             }
+
 
             foreach (FactoryBuilding Fb in m.barracks)
             {
@@ -290,6 +317,22 @@ public class GameEngine : MonoBehaviour
         }
     }
 
+    public void Display()
+    {
+        txtRound.text = "Round: " + Round;
+
+        txtHeroUnits.text = "Units Remaining: " + hero;
+        txtVillainUnits.text = "Units Remaining: " + villian;
+
+        txtHeroResourcesCollected.text = "Resources Collected: \n\t" + HeroResourcesCollected;
+        txtVillainResourcesCollected.text = "Resources Collected: \n\t" + VillainResourcesCollected;
+
+        txtHeroResourcesLeft.text = "Resources Left: \n\t" + HeroResourcesLeft;
+        txtVillainResourcesLeft.text = "Resources Left: \n\t" + VillainResourcesLeft;
+
+
+    }
+
     public void PlayPause()
     {
         if (runGame == false)
@@ -304,30 +347,29 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    //private void btnRead_Click(object sender, EventArgs e) // Read button to implement the saved files from the Save button onto the map
-    //{
+    public void Read() // Read button to implement the saved files from the Save button onto the map
+    {
+        try
+        {
+            FileStream fs = new FileStream("SaveFile.dat", FileMode.Open, FileAccess.Read, FileShare.None);
+            BinaryFormatter bf = new BinaryFormatter();
 
-    //    try
-    //    {
-    //        FileStream fs = new FileStream("SaveFile.dat", FileMode.Open, FileAccess.Read, FileShare.None);
-    //        BinaryFormatter bf = new BinaryFormatter();
+            using (fs)
+            {
+                m = (Map)bf.Deserialize(fs);
+                placeObjects();
+                //MessageBox.Show("File Loaded ");
+            }
 
-    //        using (fs)
-    //        {
-    //            m = (Map)bf.Deserialize(fs);
-    //            PlaceButtons();
-    //            MessageBox.Show("File Loaded ");
-    //        }
+        }
+        catch (Exception ex)
+        {
+            //MessageBox.Show(ex.Message);
+        }
 
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        MessageBox.Show(ex.Message);
-    //    }
+    }
 
-    //}
-
-    /*private void btnSave_Click(object sender, EventArgs e) // Save button to save the map, unit and building Information
+    public  void Save()// Save button to save the map, unit and building Information
     {
 
         try
@@ -337,43 +379,17 @@ public class GameEngine : MonoBehaviour
             using (fs)
             {
                 bf.Serialize(fs, m);
-                MessageBox.Show("File Saved");
+                //MessageBox.Show("File Saved");
             }
 
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.Message);
+            //MessageBox.Show(ex.Message);
         }
 
     }
 
-    private void btnSetSize_Click(object sender, EventArgs e) // method allowing the user to choose the map size instead of a 20X20 grid
-    {
-        try
-        {
-            mapHeight = Convert.ToInt32(txtBoxHeight.Text);
-            mapWidth = Convert.ToInt32(txtBoxWidth.Text);
-
-            if (mapHeight < 10 || mapWidth < 10)
-            {
-                MessageBox.Show("Please enter values that are greater than 9X9");
-            }
-            else
-            {
-                m = new Map(UnitNum, mapHeight, mapWidth);
-
-                buttons = new Button[mapWidth, mapHeight];
-
-                m.GenerateBattleField();
-                PlaceButtons();
-            }
-        }
-        catch
-        {
-            MessageBox.Show("Please enter valid Numbers Only");  //catch to let the user know if they have entered a non integer variable
-        }
-    }*/
 }
 
 

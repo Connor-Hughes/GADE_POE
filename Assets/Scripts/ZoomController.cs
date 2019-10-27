@@ -17,7 +17,7 @@ public class ZoomController : MonoBehaviour
             transform.position += transform.forward * Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
         }
 
-        if (transform.position.y < 9f && transform.position.y > 2.2f)
+        if (transform.position.y < 4f && transform.position.y > 2.2f)
         {
             transform.Rotate(Input.GetAxis("Mouse ScrollWheel") * rotationSpeed  * -1f, 0f, 0f);
         }
