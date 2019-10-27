@@ -1,12 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
+
+public enum Tiles
+{
+    emptyTile,
+    meleeUnitHero,
+    rangedUnitHero,
+    meleeUnitVillain,
+    rangedUnitVillain,
+    resourceBuildingHero,
+    resourceBuildingVillain,
+    factoryBuildingHero,
+    factoryBuildingVillain,
+    wizardUnit
+}
+
+public enum Faction //factions for both the Melee and the Ranged unit and new wizard unit
+{
+    Hero,
+    Villain,
+    Neutral
+}
+
+public enum ResourceType //enumeration for the diffarent type of resources
+{
+    Diamonds,
+    Coal
+}
 public class Map
 {
     private int mapWidth = 20;
     private int mapHeight = 20;
-    public string[,] map;
     Random Rd = new Random();
 
 
@@ -21,7 +48,9 @@ public class Map
     public List<WizardUnit> wizardUnits = new List<WizardUnit>();
     public Units[,] uniMap;
 
+    public Tiles[,] tileMap; 
 
+    
     int BuildingNum;
 
     public Map(int UnitN, int MapH, int MapW)
@@ -31,9 +60,10 @@ public class Map
 
         buildingMap = new Building[mapWidth, mapHeight];
         uniMap = new Units[mapWidth, mapHeight];
-        map = new string[mapWidth, mapHeight];
 
         BuildingNum = UnitN;
+
+        tileMap = new Tiles[mapWidth,mapHeight];
     }
 
     public void GenerateBattleField() // method to allow the random number of units, including the ranged and the melee units
@@ -51,10 +81,10 @@ public class Map
                 UnitName = "Ranged";
             }
 
-            ResourceBuilding DiamondMine = new ResourceBuilding(0, 0, 100, Units.Faction.Hero, "◘", 10); // setting the values and symbols for the diamond mines
+            ResourceBuilding DiamondMine = new ResourceBuilding(0, 0, 100, Faction.Hero, "◘", 10); // setting the values and symbols for the diamond mines
             diamondMines.Add(DiamondMine);
 
-            FactoryBuilding barrack = new FactoryBuilding(0, 0, 100, Units.Faction.Hero, "┬", Random.Range(3, 10), UnitName); // setting the values and symbols for the barracks
+            FactoryBuilding barrack = new FactoryBuilding(0, 0, 100, Faction.Hero, "┬", Random.Range(3, 10), UnitName); // setting the values and symbols for the barracks
             barracks.Add(barrack);
 
         }
@@ -72,17 +102,17 @@ public class Map
                 UnitName = "Ranged";
             }
 
-            ResourceBuilding DiamondMine = new ResourceBuilding(0, 0, 100, Units.Faction.Villain, "◘", 10);
+            ResourceBuilding DiamondMine = new ResourceBuilding(0, 0, 100, Faction.Villain, "◘", 10);
             diamondMines.Add(DiamondMine);
 
             FactoryBuilding barrack =
-                new FactoryBuilding(0, 0, 100, Units.Faction.Villain, "┬", Random.Range(3, 10), UnitName);
+                new FactoryBuilding(0, 0, 100, Faction.Villain, "┬", Random.Range(3, 10), UnitName);
             barracks.Add(barrack);
         }
 
         for (int i = 0; i < BuildingNum; i++)
         {
-            WizardUnit wizard = new WizardUnit("Wizard", 0, 0, 15, 1, 3, 1, Units.Faction.Neutral, "≈", false); //setting values for the new wizard unit
+            WizardUnit wizard = new WizardUnit("Wizard", 0, 0, 15, 1, 3, 1, Faction.Neutral, "≈", false); //setting values for the new wizard unit
             wizardUnits.Add(wizard);
         }
 
@@ -162,13 +192,6 @@ public class Map
 
     public void Populate() // method used to populate the map full of units
     {
-        for (int i = 0; i < mapWidth; i++)
-        {
-            for (int j = 0; j < mapHeight; j++)
-            {
-                map[i, j] = " ";
-            }
-        }
 
         foreach (Units u in units) ////
         {
@@ -192,19 +215,6 @@ public class Map
         foreach (Units u in units)
         {
             uniMap[u.posY, u.posX] = u; //////
-        }
-
-        foreach (Units u in rangedUnit)
-        {
-            map[u.posY, u.posX] = "R";
-        }
-        foreach (Units u in melleUnit)
-        {
-            map[u.posY, u.posX] = "M";
-        }
-        foreach (WizardUnit u in wizardUnits)
-        {
-            map[u.posY, u.posX] = "W";
         }
 
     }
@@ -234,17 +244,9 @@ public class Map
             }
         }
 
-        foreach (ResourceBuilding u in diamondMines)
-        {
-            map[u.PosY, u.PosX] = "RB";
-        }
-        foreach (FactoryBuilding u in barracks)
-        {
-            map[u.PosY, u.PosX] = "FB";
-        }
     }
 
-    public void SpawnUnits(int x, int y, Units.Faction fac, string unitType) // Spawning the Units from the Buildings including the melee and ranged Units
+    public void SpawnUnits(int x, int y, Faction fac, string unitType) // Spawning the Units from the Buildings including the melee and ranged Units
     {
         if (unitType == "Ranged")
         {

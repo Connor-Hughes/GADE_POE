@@ -10,7 +10,7 @@ public abstract class Building
 
     protected int health;
 
-    public Units.Faction faction;
+    public Faction faction;
 
     protected string symbol;
 
@@ -19,7 +19,7 @@ public abstract class Building
 
     public abstract string ToString();
 
-    public Building(int x, int y, int hp, Units.Faction fac, string sym) //constructor for the building class
+    public Building(int x, int y, int hp, Faction fac, string sym) //constructor for the building class
     {
         posX = x;
         posY = y;

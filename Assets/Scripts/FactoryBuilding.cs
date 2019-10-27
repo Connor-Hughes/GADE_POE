@@ -47,7 +47,7 @@ public class FactoryBuilding : Building
         set { health = value; }
     }
 
-    public Units.Faction Faction
+    public Faction Faction
     {
         get { return base.faction; }
         set { faction = value; }
@@ -76,7 +76,7 @@ public class FactoryBuilding : Building
     }
 
 
-    public FactoryBuilding(int x, int y, int hp, Units.Faction fac, string sym, int Pspeed, string uType) : //constructor
+    public FactoryBuilding(int x, int y, int hp, Faction fac, string sym, int Pspeed, string uType) : //constructor
         base(x, y, hp, fac, sym)
     {
         ProductionSPeed = Pspeed;

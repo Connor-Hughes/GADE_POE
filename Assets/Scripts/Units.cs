@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public abstract class Units
 {
     //[Serializable]
-    public enum Faction //factions for both the Melee and the Ranged unit and new wizard unit
-    {
-        Hero,
-        Villain,
-        Neutral
-    }
 
     public string name;
 

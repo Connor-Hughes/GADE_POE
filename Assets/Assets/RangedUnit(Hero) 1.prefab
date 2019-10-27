@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4518079650963495016}
   m_Layer: 0
   m_Name: RangedUnit(Hero) 1
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

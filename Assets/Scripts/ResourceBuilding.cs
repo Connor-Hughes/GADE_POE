@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class ResourceBuilding : Building
 {
-    public enum ResourceType //enumeration for the diffarent type of resources
-    {
-        Diamonds,
-        Coal
-    }
+
 
     public int PosX
     {
@@ -28,7 +24,7 @@ public class ResourceBuilding : Building
         set { health = value; }
     }
 
-    public Units.Faction Faction
+    public Faction Faction
     {
         get { return base.faction; }
         set { faction = value; }
@@ -46,7 +42,7 @@ public class ResourceBuilding : Building
     private ResourceType Resource;
 
 
-    public ResourceBuilding(int x, int y, int hp, Units.Faction fac, string sym, int ResPerRound) : //constructor
+    public ResourceBuilding(int x, int y, int hp, Faction fac, string sym, int ResPerRound) : //constructor
         base(x, y, hp, fac, sym)
     {
         GeneratePerRound = ResPerRound;
