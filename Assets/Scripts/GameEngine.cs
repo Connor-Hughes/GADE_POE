@@ -25,6 +25,7 @@ public class GameEngine : MonoBehaviour
         m.Populate();
         m.PlaceBuildings();
         placeObjects();
+        Display();
     }
 
     // Update is called once per frame
@@ -97,6 +98,7 @@ public class GameEngine : MonoBehaviour
 
     public void GameLogic() //game engine method instead of a separate class
     {
+        Display();
         txtRound.text = "Round: " + Round;
         hero = 0;
         villian = 0;
@@ -140,19 +142,23 @@ public class GameEngine : MonoBehaviour
 
         if (hero > 0 && villian > 0) // telling the game when there is only 1 type of unit left then that team is the victor
         {
-            int ResourcesRemainingVillain;
-            int ResourcesRemainingHero;
+            HeroResourcesLeft = 0;
+            VillainResourcesLeft = 0;
+            HeroResourcesCollected = 0;
+            VillainResourcesCollected = 0;
 
             foreach (ResourceBuilding Rb in m.diamondMines)
             {
                 Rb.GenerateResources();
                 if (Rb.faction == Faction.Hero)
                 {
-                    
+                    HeroResourcesLeft += Rb.ResourcesLeft;
+                    HeroResourcesCollected += Rb.ResourcesGathered;
                 }
                 else if (Rb.faction == Faction.Villain)
                 {
-
+                    VillainResourcesLeft += Rb.ResourcesLeft;
+                    VillainResourcesCollected += Rb.ResourcesGathered;
                 }
             }
 
@@ -329,7 +335,6 @@ public class GameEngine : MonoBehaviour
 
         txtHeroResourcesLeft.text = "Resources Left: \n\t" + HeroResourcesLeft;
         txtVillainResourcesLeft.text = "Resources Left: \n\t" + VillainResourcesLeft;
-
 
     }
 

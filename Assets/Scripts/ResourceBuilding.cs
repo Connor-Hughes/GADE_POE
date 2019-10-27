@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ResourceBuilding : Building
@@ -35,6 +36,19 @@ public class ResourceBuilding : Building
         get { return base.symbol; }
         set { symbol = value; }
     }
+
+    public int ResourcesLeft
+    {
+        get { return ResourcePool; }
+    }
+
+
+    public int ResourcesGathered
+    {
+        get { return ResourceGenerated; }
+    }
+
+
 
     private int ResourceGenerated = 0;
     private int GeneratePerRound = 0;
