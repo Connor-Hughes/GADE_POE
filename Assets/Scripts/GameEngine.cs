@@ -6,18 +6,23 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 using Color = UnityEngine.Color;
 
 [System.Serializable]
+
 public class GameEngine : MonoBehaviour
 {
     int temp = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         m = new Map(UnitNum, mapHeight, mapWidth);
         m.GenerateBattleField();
         InitialiseMap();
+        m.Populate();
+        m.PlaceBuildings();
         placeObjects();
     }
 
@@ -27,6 +32,12 @@ public class GameEngine : MonoBehaviour
         if (temp == 20)
         {
             GameLogic();
+            InitialiseMap();
+            m.Populate();
+            m.PlaceBuildings();
+            placeObjects();
+
+            temp = 0;
         }
         else
         {
@@ -54,6 +65,20 @@ public class GameEngine : MonoBehaviour
     public int Round = 1;
 
     private Map m;
+
+    public Text txtWinText;
+    public Text txtPausePlay;
+    public Text txtRound;
+
+    public Text txtHeroResourcesLeft;
+    public Text txtHeroResourcesCollected;
+    public Text txtHeroUnits;
+
+    public Text txtVillainResourcesLeft;
+    public Text txtVillainResourcesCollected;
+    public Text txtVillainUnits;
+
+
 
     public void GameLogic() //game engine method instead of a separate class
     {
@@ -129,11 +154,11 @@ public class GameEngine : MonoBehaviour
             m.PlaceBuildings();
             if (hero > villian)
             {
-                //MessageBox.Show("Hero Wins on Round: " + Round);
+                txtWinText.text = "Hero Wins on round:" + Round;
             }
             else
             {
-                //MessageBox.Show("Villain Wins on Round: " + Round);
+                txtWinText.text = "Villain Wins on round:" + Round;
             }
         }
 
@@ -211,43 +236,43 @@ public class GameEngine : MonoBehaviour
             {
                 if (m.tileMap[x, z] == Tiles.emptyTile)
                 {
-                    Instantiate(emptyTile, new Vector3(x, 0f, 0), Quaternion.identity);
+                    Instantiate(emptyTile, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.meleeUnitHero)
                 {
-                    Instantiate(meleeUnitHero, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(meleeUnitHero, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.meleeUnitVillain)
                 {
-                    Instantiate(meleeUnitVillain, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(meleeUnitVillain, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.rangedUnitHero)
                 {
-                    Instantiate(rangedUnitHero, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(rangedUnitHero, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.rangedUnitVillain)
                 {
-                    Instantiate(rangedUnitVillain, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(rangedUnitVillain, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.wizardUnit)
                 {
-                    Instantiate(wizardUnit, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(wizardUnit, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.factoryBuildingHero)
                 {
-                    Instantiate(factoryBuildingHero, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(factoryBuildingHero, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.factoryBuildingVillain)
                 {
-                    Instantiate(factoryBuildingVillain, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(factoryBuildingVillain, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.resourceBuildingHero)
                 {
-                    Instantiate(resourceBuildingHero, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(resourceBuildingHero, new Vector3(x, 0f, z), Quaternion.identity);
                 }
                 else if (m.tileMap[x, z] == Tiles.resourceBuildingVillain)
                 {
-                    Instantiate(resourceBuildingVillain, new Vector3(x, 0.5f, 0), Quaternion.identity);
+                    Instantiate(resourceBuildingVillain, new Vector3(x, 0f, z), Quaternion.identity);
                 }
             }
         }

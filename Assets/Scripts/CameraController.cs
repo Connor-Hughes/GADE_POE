@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float speed;
 
+    public float rSpeed;
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position += transform.right * Input.GetAxis("Horizontal") * speed;
+        transform.position += transform.forward * Input.GetAxis("Vertical") * speed;
+
+        transform.Rotate(Vector3.up, Input.GetAxis("Rotation") * rSpeed, Space.World);
     }
 }

@@ -192,55 +192,57 @@ public class Map
 
     public void Populate() // method used to populate the map full of units
     {
-
-        foreach (Units u in units) ////
+        foreach (RangedUnit u in rangedUnit)
         {
-            if (u is RangedUnit)
+            if (u.factionType == Faction.Hero)
             {
-                RangedUnit r = (RangedUnit)u;
-                uniMap[r.PosY, r.PosX] = u;
-            }
-            else if (u is MeleeUnit)
+                tileMap[u.posY, u.posX] = Tiles.rangedUnitHero;
+            } 
+            else
             {
-                MeleeUnit m = (MeleeUnit)u;
-                uniMap[m.PosY, m.PosX] = u;
-            }
-            else if (u is WizardUnit)
-            {
-                WizardUnit w = (WizardUnit)u;
-                uniMap[w.PosY, w.PosX] = u;
+                tileMap[u.posY, u.posX] = Tiles.rangedUnitVillain;
             }
         }
 
-        foreach (Units u in units)
+        foreach (MeleeUnit u in melleUnit)
         {
-            uniMap[u.posY, u.posX] = u; //////
+            if (u.factionType == Faction.Hero)
+            {
+                tileMap[u.posY, u.posX] = Tiles.meleeUnitHero;
+            }
+            else
+            {
+                tileMap[u.posY, u.posX] = Tiles.meleeUnitVillain;
+            }
         }
-
+        foreach (WizardUnit u in wizardUnits)
+        {
+            tileMap[u.posY, u.posX] = Tiles.wizardUnit;
+        }
     }
 
     public void PlaceBuildings() // method to place buildings randomly throughout the map and spawn the random units 
     {
-
-        for (int i = 0; i < mapWidth; i++)
+        foreach (FactoryBuilding u in barracks)
         {
-            for (int j = 0; j < mapHeight; j++)
+            if (u.Faction == Faction.Hero)
             {
-                buildingMap[i, j] = null;
+                tileMap[u.PosY, u.PosX] = Tiles.factoryBuildingHero;
+            }
+            else
+            {
+                tileMap[u.PosY, u.PosX] = Tiles.factoryBuildingVillain;
             }
         }
-
-        foreach (Building u in buildings)
+        foreach (ResourceBuilding u in diamondMines)
         {
-            if (u is FactoryBuilding)
+            if (u.Faction == Faction.Hero)
             {
-                FactoryBuilding Factory = (FactoryBuilding)u;
-                buildingMap[Factory.PosY, Factory.PosX] = u;
+                tileMap[u.PosY, u.PosX] = Tiles.resourceBuildingHero;
             }
-            else if (u is ResourceBuilding)
+            else
             {
-                ResourceBuilding factory = (ResourceBuilding)u;
-                buildingMap[factory.PosY, factory.PosX] = u;
+                tileMap[u.PosY, u.PosX] = Tiles.resourceBuildingVillain;
             }
         }
 

@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\ResourceBuilding.cs" />
     <Compile Include="Assets\Scripts\Units.cs" />
     <Compile Include="Assets\Scripts\WizardUnit.cs" />
+    <Compile Include="Assets\Scripts\ZoomController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/GADE6111/GADE_POE/GADE_POE/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
